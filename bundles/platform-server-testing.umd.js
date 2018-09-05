@@ -1,6 +1,6 @@
 /**
- * @license Angular v5.1.0-beta.0-21bfaf226
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v7.0.0-beta.4-a2418a9037
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 (function (global, factory) {
@@ -10,13 +10,13 @@
 }(this, (function (exports,_angular_core,_angular_platformBrowserDynamic_testing,_angular_platformBrowser_animations,_angular_platformServer) { 'use strict';
 
 /**
- * @license Angular v5.1.0-beta.0-21bfaf226
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v7.0.0-beta.4-a2418a9037
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -25,18 +25,18 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
+/** *
  * Platform for testing
  *
  * \@experimental API related to bootstrapping are still under review.
- */
+  @type {?} */
 var platformServerTesting = _angular_core.createPlatformFactory(_angular_platformBrowserDynamic_testing.ɵplatformCoreDynamicTesting, 'serverTesting', _angular_platformServer.ɵINTERNAL_SERVER_PLATFORM_PROVIDERS);
 /**
  * NgModule for testing.
  *
  * \@experimental API related to bootstrapping are still under review.
  */
-var ServerTestingModule = (function () {
+var ServerTestingModule = /** @class */ (function () {
     function ServerTestingModule() {
     }
     ServerTestingModule.decorators = [
@@ -46,8 +46,6 @@ var ServerTestingModule = (function () {
                     providers: _angular_platformServer.ɵSERVER_RENDER_PROVIDERS
                 },] },
     ];
-    /** @nocollapse */
-    ServerTestingModule.ctorParameters = function () { return []; };
     return ServerTestingModule;
 }());
 

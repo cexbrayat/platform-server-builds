@@ -1,13 +1,13 @@
 /**
- * @license Angular v5.1.0-beta.0-21bfaf226
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v7.0.0-beta.4-a2418a9037
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations/browser'), require('@angular/common'), require('@angular/common/http'), require('@angular/http'), require('@angular/platform-browser-dynamic'), require('@angular/platform-browser/animations'), require('rxjs/Observable'), require('rxjs/Subject'), require('url'), require('@angular/compiler'), require('rxjs/operator/filter'), require('rxjs/operator/first'), require('rxjs/operator/toPromise')) :
-	typeof define === 'function' && define.amd ? define('@angular/platform-server', ['exports', '@angular/core', '@angular/platform-browser', '@angular/animations/browser', '@angular/common', '@angular/common/http', '@angular/http', '@angular/platform-browser-dynamic', '@angular/platform-browser/animations', 'rxjs/Observable', 'rxjs/Subject', 'url', '@angular/compiler', 'rxjs/operator/filter', 'rxjs/operator/first', 'rxjs/operator/toPromise'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.platformServer = {}),global.ng.core,global.ng.platformBrowser,global.ng.animations.browser,global.ng.common,global.ng.common.http,global.ng.http,global.ng.platformBrowserDynamic,global.ng.platformBrowser.animations,global.Rx,global.Rx,global.url,global.ng.compiler,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype));
-}(this, (function (exports,_angular_core,_angular_platformBrowser,_angular_animations_browser,_angular_common,_angular_common_http,_angular_http,_angular_platformBrowserDynamic,_angular_platformBrowser_animations,rxjs_Observable,rxjs_Subject,url,_angular_compiler,rxjs_operator_filter,rxjs_operator_first,rxjs_operator_toPromise) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/animations/browser'), require('@angular/common'), require('@angular/common/http'), require('@angular/http'), require('@angular/platform-browser-dynamic'), require('@angular/platform-browser/animations'), require('rxjs'), require('url'), require('@angular/compiler'), require('rxjs/operators')) :
+	typeof define === 'function' && define.amd ? define('@angular/platform-server', ['exports', '@angular/core', '@angular/platform-browser', '@angular/animations/browser', '@angular/common', '@angular/common/http', '@angular/http', '@angular/platform-browser-dynamic', '@angular/platform-browser/animations', 'rxjs', 'url', '@angular/compiler', 'rxjs/operators'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.platformServer = {}),global.ng.core,global.ng.platformBrowser,global.ng.animations.browser,global.ng.common,global.ng.common.http,global.ng.http,global.ng.platformBrowserDynamic,global.ng.platformBrowser.animations,global.rxjs,global.url,global.ng.compiler,global.rxjs.operators));
+}(this, (function (exports,_angular_core,_angular_platformBrowser,_angular_animations_browser,_angular_common,_angular_common_http,_angular_http,_angular_platformBrowserDynamic,_angular_platformBrowser_animations,rxjs,url,_angular_compiler,rxjs_operators) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -25,9 +25,12 @@ and limitations under the License.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = Object.setPrototypeOf ||
-    ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-    function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
 
 function __extends(d, b) {
     extendStatics(d, b);
@@ -36,21 +39,21 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v5.1.0-beta.0-21bfaf226
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v7.0.0-beta.4-a2418a9037
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
+/** *
  * @license
  * Copyright Google Inc. All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
- */
+  @type {?} */
 var domino = require('domino');
 /**
  * @param {?} methodName
@@ -60,6 +63,14 @@ function _notImplemented(methodName) {
     return new Error('This method is not implemented in DominoAdapter: ' + methodName);
 }
 /**
+ * @return {?}
+ */
+function setDomTypes() {
+    // Make all Domino types available as types in the global env.
+    Object.assign(global, domino.impl);
+    (/** @type {?} */ (global))['KeyboardEvent'] = domino.impl.Event;
+}
+/**
  * Parses a document string to a Document object.
  * @param {?} html
  * @param {?=} url
@@ -67,8 +78,10 @@ function _notImplemented(methodName) {
  */
 function parseDocument(html, url$$1) {
     if (url$$1 === void 0) { url$$1 = '/'; }
-    var /** @type {?} */ window = domino.createWindow(html, url$$1);
-    var /** @type {?} */ doc = window.document;
+    /** @type {?} */
+    var window = domino.createWindow(html, url$$1);
+    /** @type {?} */
+    var doc = window.document;
     return doc;
 }
 /**
@@ -82,7 +95,7 @@ function serializeDocument(doc) {
 /**
  * DOM Adapter for the server platform based on https://github.com/fgnass/domino.
  */
-var DominoAdapter = (function (_super) {
+var DominoAdapter = /** @class */ (function (_super) {
     __extends(DominoAdapter, _super);
     function DominoAdapter() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -93,7 +106,10 @@ var DominoAdapter = (function (_super) {
     DominoAdapter.makeCurrent = /**
      * @return {?}
      */
-    function () { _angular_platformBrowser.ɵsetRootDomAdapter(new DominoAdapter()); };
+    function () {
+        setDomTypes();
+        _angular_platformBrowser.ɵsetRootDomAdapter(new DominoAdapter());
+    };
     /**
      * @param {?} error
      * @return {?}
@@ -156,7 +172,8 @@ var DominoAdapter = (function (_super) {
      * @return {?}
      */
     function (nodeA, nodeB) {
-        var /** @type {?} */ inner = nodeB;
+        /** @type {?} */
+        var inner = nodeB;
         while (inner) {
             if (inner === nodeA)
                 return true;
@@ -272,7 +289,7 @@ var DominoAdapter = (function (_super) {
     function (el, name) {
         if (name === 'href') {
             // Domino tries tp resolve href-s which we do not want. Just return the
-            // atribute value.
+            // attribute value.
             return this.getAttribute(el, 'href');
         }
         else if (name === 'innerText') {
@@ -295,8 +312,8 @@ var DominoAdapter = (function (_super) {
      */
     function (el, name, value) {
         if (name === 'href') {
-            // Eventhough the server renderer reflects any properties to attributes
-            // map 'href' to atribute just to handle when setProperty is directly called.
+            // Even though the server renderer reflects any properties to attributes
+            // map 'href' to attribute just to handle when setProperty is directly called.
             this.setAttribute(el, 'href', value);
         }
         else if (name === 'innerText') {
@@ -336,8 +353,10 @@ var DominoAdapter = (function (_super) {
      * @return {?}
      */
     function (doc) {
-        var /** @type {?} */ base = this.querySelector(doc.documentElement, 'base');
-        var /** @type {?} */ href = '';
+        /** @type {?} */
+        var base = this.querySelector(doc.documentElement, 'base');
+        /** @type {?} */
+        var href = '';
         if (base) {
             href = this.getHref(base);
         }
@@ -356,18 +375,25 @@ var DominoAdapter = (function (_super) {
      * @return {?}
      */
     function (element) {
-        var /** @type {?} */ styleMap = {};
-        var /** @type {?} */ styleAttribute = element.getAttribute('style');
+        /** @type {?} */
+        var styleMap = {};
+        /** @type {?} */
+        var styleAttribute = element.getAttribute('style');
         if (styleAttribute) {
-            var /** @type {?} */ styleList = styleAttribute.split(/;+/g);
-            for (var /** @type {?} */ i = 0; i < styleList.length; i++) {
-                if (styleList[i].length > 0) {
-                    var /** @type {?} */ style = /** @type {?} */ (styleList[i]);
-                    var /** @type {?} */ colon = style.indexOf(':');
-                    if (colon === -1) {
+            /** @type {?} */
+            var styleList = styleAttribute.split(/;+/g);
+            for (var i = 0; i < styleList.length; i++) {
+                /** @type {?} */
+                var style = styleList[i].trim();
+                if (style.length > 0) {
+                    /** @type {?} */
+                    var colonIndex = style.indexOf(':');
+                    if (colonIndex === -1) {
                         throw new Error("Invalid CSS style: " + style);
                     }
-                    (/** @type {?} */ (styleMap))[style.substr(0, colon).trim()] = style.substr(colon + 1).trim();
+                    /** @type {?} */
+                    var name_1 = style.substr(0, colonIndex).trim();
+                    styleMap[name_1] = style.substr(colonIndex + 1).trim();
                 }
             }
         }
@@ -387,9 +413,11 @@ var DominoAdapter = (function (_super) {
      * @return {?}
      */
     function (element, styleMap) {
-        var /** @type {?} */ styleAttrValue = '';
-        for (var /** @type {?} */ key in styleMap) {
-            var /** @type {?} */ newValue = styleMap[key];
+        /** @type {?} */
+        var styleAttrValue = '';
+        for (var key in styleMap) {
+            /** @type {?} */
+            var newValue = styleMap[key];
             if (newValue) {
                 styleAttrValue += key + ':' + styleMap[key] + ';';
             }
@@ -409,8 +437,10 @@ var DominoAdapter = (function (_super) {
      * @return {?}
      */
     function (element, styleName, styleValue) {
-        var /** @type {?} */ styleMap = this._readStyleAttribute(element);
-        (/** @type {?} */ (styleMap))[styleName] = styleValue;
+        styleName = styleName.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+        /** @type {?} */
+        var styleMap = this._readStyleAttribute(element);
+        styleMap[styleName] = styleValue || '';
         this._writeStyleAttribute(element, styleMap);
     };
     /**
@@ -423,7 +453,11 @@ var DominoAdapter = (function (_super) {
      * @param {?} styleName
      * @return {?}
      */
-    function (element, styleName) { this.setStyle(element, styleName, null); };
+    function (element, styleName) {
+        // IE requires '' instead of null
+        // see https://github.com/angular/angular/issues/7916
+        this.setStyle(element, styleName, '');
+    };
     /**
      * @param {?} element
      * @param {?} styleName
@@ -435,8 +469,9 @@ var DominoAdapter = (function (_super) {
      * @return {?}
      */
     function (element, styleName) {
-        var /** @type {?} */ styleMap = this._readStyleAttribute(element);
-        return styleMap.hasOwnProperty(styleName) ? (/** @type {?} */ (styleMap))[styleName] : '';
+        /** @type {?} */
+        var styleMap = this._readStyleAttribute(element);
+        return styleMap[styleName] || '';
     };
     /**
      * @param {?} element
@@ -451,7 +486,8 @@ var DominoAdapter = (function (_super) {
      * @return {?}
      */
     function (element, styleName, styleValue) {
-        var /** @type {?} */ value = this.getStyle(element, styleName) || '';
+        /** @type {?} */
+        var value = this.getStyle(element, styleName);
         return styleValue ? value == styleValue : value.length > 0;
     };
     /**
@@ -466,9 +502,10 @@ var DominoAdapter = (function (_super) {
      */
     function (el, evt) {
         el.dispatchEvent(evt);
-        // Dispatch the event to the window also.
-        var /** @type {?} */ doc = el.ownerDocument || el;
-        var /** @type {?} */ win = (/** @type {?} */ (doc)).defaultView;
+        /** @type {?} */
+        var doc = el.ownerDocument || el;
+        /** @type {?} */
+        var win = (/** @type {?} */ (doc)).defaultView;
         if (win) {
             win.dispatchEvent(evt);
         }
@@ -570,7 +607,7 @@ var DominoAdapter = (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -584,7 +621,7 @@ var DominoAdapter = (function (_super) {
  *
  * \@experimental
  */
-var PlatformState = (function () {
+var PlatformState = /** @class */ (function () {
     function PlatformState(_doc) {
         this._doc = _doc;
     }
@@ -617,14 +654,14 @@ var PlatformState = (function () {
     ];
     /** @nocollapse */
     PlatformState.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] }] }
     ]; };
     return PlatformState;
 }());
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -633,7 +670,9 @@ var PlatformState = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/** @type {?} */
 var xhr2 = require('xhr2');
+/** @type {?} */
 var isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
 /**
  * @param {?} url
@@ -644,7 +683,7 @@ function validateRequestUrl(url$$1) {
         throw new Error("URLs requested via Http on the server must be absolute. URL: " + url$$1);
     }
 }
-var ServerXhr = (function () {
+var ServerXhr = /** @class */ (function () {
     function ServerXhr() {
     }
     /**
@@ -657,11 +696,9 @@ var ServerXhr = (function () {
     ServerXhr.decorators = [
         { type: _angular_core.Injectable },
     ];
-    /** @nocollapse */
-    ServerXhr.ctorParameters = function () { return []; };
     return ServerXhr;
 }());
-var ServerXsrfStrategy = (function () {
+var ServerXsrfStrategy = /** @class */ (function () {
     function ServerXsrfStrategy() {
     }
     /**
@@ -676,14 +713,13 @@ var ServerXsrfStrategy = (function () {
     ServerXsrfStrategy.decorators = [
         { type: _angular_core.Injectable },
     ];
-    /** @nocollapse */
-    ServerXsrfStrategy.ctorParameters = function () { return []; };
     return ServerXsrfStrategy;
 }());
 /**
  * @abstract
+ * @template S, R
  */
-var ZoneMacroTaskWrapper = (function () {
+var ZoneMacroTaskWrapper = /** @class */ (function () {
     function ZoneMacroTaskWrapper() {
     }
     /**
@@ -696,16 +732,23 @@ var ZoneMacroTaskWrapper = (function () {
      */
     function (request) {
         var _this = this;
-        return new rxjs_Observable.Observable(function (observer) {
-            var /** @type {?} */ task = /** @type {?} */ ((null));
-            var /** @type {?} */ scheduled = false;
-            var /** @type {?} */ sub = null;
-            var /** @type {?} */ savedResult = null;
-            var /** @type {?} */ savedError = null;
-            var /** @type {?} */ scheduleTask = function (_task) {
+        return new rxjs.Observable(function (observer) {
+            /** @type {?} */
+            var task = /** @type {?} */ ((null));
+            /** @type {?} */
+            var scheduled = false;
+            /** @type {?} */
+            var sub = null;
+            /** @type {?} */
+            var savedResult = null;
+            /** @type {?} */
+            var savedError = null;
+            /** @type {?} */
+            var scheduleTask = function (_task) {
                 task = _task;
                 scheduled = true;
-                var /** @type {?} */ delegate = _this.delegate(request);
+                /** @type {?} */
+                var delegate = _this.delegate(request);
                 sub = delegate.subscribe(function (res) { return savedResult = res; }, function (err) {
                     if (!scheduled) {
                         throw new Error('An http observable was completed twice. This shouldn\'t happen, please file a bug.');
@@ -721,7 +764,8 @@ var ZoneMacroTaskWrapper = (function () {
                     task.invoke();
                 });
             };
-            var /** @type {?} */ cancelTask = function (_task) {
+            /** @type {?} */
+            var cancelTask = function (_task) {
                 if (!scheduled) {
                     return;
                 }
@@ -731,7 +775,8 @@ var ZoneMacroTaskWrapper = (function () {
                     sub = null;
                 }
             };
-            var /** @type {?} */ onComplete = function () {
+            /** @type {?} */
+            var onComplete = function () {
                 if (savedError !== null) {
                     observer.error(savedError);
                 }
@@ -740,10 +785,8 @@ var ZoneMacroTaskWrapper = (function () {
                     observer.complete();
                 }
             };
-            // MockBackend for Http is synchronous, which means that if scheduleTask is by
-            // scheduleMacroTask, the request will hit MockBackend and the response will be
-            // sent, causing task.invoke() to be called.
-            var /** @type {?} */ _task = Zone.current.scheduleMacroTask('ZoneMacroTaskWrapper.subscribe', onComplete, {}, function () { return null; }, cancelTask);
+            /** @type {?} */
+            var _task = Zone.current.scheduleMacroTask('ZoneMacroTaskWrapper.subscribe', onComplete, {}, function () { return null; }, cancelTask);
             scheduleTask(_task);
             return function () {
                 if (scheduled && task) {
@@ -759,7 +802,7 @@ var ZoneMacroTaskWrapper = (function () {
     };
     return ZoneMacroTaskWrapper;
 }());
-var ZoneMacroTaskConnection = (function (_super) {
+var ZoneMacroTaskConnection = /** @class */ (function (_super) {
     __extends(ZoneMacroTaskConnection, _super);
     function ZoneMacroTaskConnection(request, backend) {
         var _this = _super.call(this) || this;
@@ -793,7 +836,7 @@ var ZoneMacroTaskConnection = (function (_super) {
     });
     return ZoneMacroTaskConnection;
 }(ZoneMacroTaskWrapper));
-var ZoneMacroTaskBackend = (function () {
+var ZoneMacroTaskBackend = /** @class */ (function () {
     function ZoneMacroTaskBackend(backend) {
         this.backend = backend;
     }
@@ -810,7 +853,7 @@ var ZoneMacroTaskBackend = (function () {
     };
     return ZoneMacroTaskBackend;
 }());
-var ZoneClientBackend = (function (_super) {
+var ZoneClientBackend = /** @class */ (function (_super) {
     __extends(ZoneClientBackend, _super);
     function ZoneClientBackend(backend) {
         var _this = _super.call(this) || this;
@@ -845,31 +888,34 @@ var ZoneClientBackend = (function (_super) {
  * @return {?}
  */
 function httpFactory(xhrBackend, options) {
-    var /** @type {?} */ macroBackend = new ZoneMacroTaskBackend(xhrBackend);
+    /** @type {?} */
+    var macroBackend = new ZoneMacroTaskBackend(xhrBackend);
     return new _angular_http.Http(macroBackend, options);
 }
 /**
  * @param {?} backend
- * @param {?} interceptors
+ * @param {?} injector
  * @return {?}
  */
-function zoneWrappedInterceptingHandler(backend, interceptors) {
-    var /** @type {?} */ realBackend = _angular_common_http.ɵinterceptingHandler(backend, interceptors);
+function zoneWrappedInterceptingHandler(backend, injector) {
+    /** @type {?} */
+    var realBackend = new _angular_common_http.ɵHttpInterceptingHandler(backend, injector);
     return new ZoneClientBackend(realBackend);
 }
+/** @type {?} */
 var SERVER_HTTP_PROVIDERS = [
     { provide: _angular_http.Http, useFactory: httpFactory, deps: [_angular_http.XHRBackend, _angular_http.RequestOptions] },
     { provide: _angular_http.BrowserXhr, useClass: ServerXhr }, { provide: _angular_http.XSRFStrategy, useClass: ServerXsrfStrategy },
     { provide: _angular_common_http.XhrFactory, useClass: ServerXhr }, {
         provide: _angular_common_http.HttpHandler,
         useFactory: zoneWrappedInterceptingHandler,
-        deps: [_angular_common_http.HttpBackend, [new _angular_core.Optional(), _angular_common_http.HTTP_INTERCEPTORS]]
+        deps: [_angular_common_http.HttpBackend, _angular_core.Injector]
     }
 ];
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -885,30 +931,38 @@ var SERVER_HTTP_PROVIDERS = [
  * @record
  */
 
-/**
+/** *
  * The DI token for setting the initial config for the platform.
  *
  * \@experimental
- */
+  @type {?} */
 var INITIAL_CONFIG = new _angular_core.InjectionToken('Server.INITIAL_CONFIG');
-/**
+/** *
  * A function that will be executed when calling `renderModuleFactory` or `renderModule` just
  * before current platform state is rendered to string.
  *
  * \@experimental
- */
+  @type {?} */
 var BEFORE_APP_SERIALIZED = new _angular_core.InjectionToken('Server.RENDER_MODULE_HOOK');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
 /**
  * @param {?} urlStr
  * @return {?}
  */
 function parseUrl(urlStr) {
-    var /** @type {?} */ parsedUrl = url.parse(urlStr);
+    /** @type {?} */
+    var parsedUrl = url.parse(urlStr);
     return {
         pathname: parsedUrl.pathname || '',
         search: parsedUrl.search || '',
@@ -919,16 +973,18 @@ function parseUrl(urlStr) {
  * Server-side implementation of URL state. Implements `pathname`, `search`, and `hash`
  * but not the state stack.
  */
-var ServerPlatformLocation = (function () {
+var ServerPlatformLocation = /** @class */ (function () {
     function ServerPlatformLocation(_doc, _config) {
         this._doc = _doc;
         this.pathname = '/';
         this.search = '';
         this.hash = '';
-        this._hashUpdate = new rxjs_Subject.Subject();
-        var /** @type {?} */ config = /** @type {?} */ (_config);
+        this._hashUpdate = new rxjs.Subject();
+        /** @type {?} */
+        var config = /** @type {?} */ (_config);
         if (!!config && !!config.url) {
-            var /** @type {?} */ parsedUrl = parseUrl(config.url);
+            /** @type {?} */
+            var parsedUrl = parseUrl(config.url);
             this.pathname = parsedUrl.pathname;
             this.search = parsedUrl.search;
             this.hash = parsedUrl.hash;
@@ -987,8 +1043,11 @@ var ServerPlatformLocation = (function () {
             return;
         }
         (/** @type {?} */ (this)).hash = value;
-        var /** @type {?} */ newUrl = this.url;
-        scheduleMicroTask(function () { return _this._hashUpdate.next(/** @type {?} */ ({ type: 'hashchange', oldUrl: oldUrl, newUrl: newUrl })); });
+        /** @type {?} */
+        var newUrl = this.url;
+        scheduleMicroTask(function () { return _this._hashUpdate.next(/** @type {?} */ ({
+            type: 'hashchange', state: null, oldUrl: oldUrl, newUrl: newUrl
+        })); });
     };
     /**
      * @param {?} state
@@ -1003,8 +1062,10 @@ var ServerPlatformLocation = (function () {
      * @return {?}
      */
     function (state, title, newUrl) {
-        var /** @type {?} */ oldUrl = this.url;
-        var /** @type {?} */ parsedUrl = parseUrl(newUrl);
+        /** @type {?} */
+        var oldUrl = this.url;
+        /** @type {?} */
+        var parsedUrl = parseUrl(newUrl);
         (/** @type {?} */ (this)).pathname = parsedUrl.pathname;
         (/** @type {?} */ (this)).search = parsedUrl.search;
         this.setHash(parsedUrl.hash, oldUrl);
@@ -1043,8 +1104,8 @@ var ServerPlatformLocation = (function () {
     ];
     /** @nocollapse */
     ServerPlatformLocation.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
-        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [INITIAL_CONFIG,] },] },
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] }] },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [INITIAL_CONFIG,] }] }
     ]; };
     return ServerPlatformLocation;
 }());
@@ -1058,7 +1119,7 @@ function scheduleMicroTask(fn) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1067,15 +1128,87 @@ function scheduleMicroTask(fn) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+var ServerEventManagerPlugin = /** @class */ (function () {
+    function ServerEventManagerPlugin(doc) {
+        this.doc = doc;
+    }
+    // Handle all events on the server.
+    /**
+     * @param {?} eventName
+     * @return {?}
+     */
+    ServerEventManagerPlugin.prototype.supports = /**
+     * @param {?} eventName
+     * @return {?}
+     */
+    function (eventName) { return true; };
+    /**
+     * @param {?} element
+     * @param {?} eventName
+     * @param {?} handler
+     * @return {?}
+     */
+    ServerEventManagerPlugin.prototype.addEventListener = /**
+     * @param {?} element
+     * @param {?} eventName
+     * @param {?} handler
+     * @return {?}
+     */
+    function (element, eventName, handler) {
+        return _angular_platformBrowser.ɵgetDOM().onAndCancel(element, eventName, handler);
+    };
+    /**
+     * @param {?} element
+     * @param {?} eventName
+     * @param {?} handler
+     * @return {?}
+     */
+    ServerEventManagerPlugin.prototype.addGlobalEventListener = /**
+     * @param {?} element
+     * @param {?} eventName
+     * @param {?} handler
+     * @return {?}
+     */
+    function (element, eventName, handler) {
+        /** @type {?} */
+        var target = _angular_platformBrowser.ɵgetDOM().getGlobalEventTarget(this.doc, element);
+        if (!target) {
+            throw new Error("Unsupported event target " + target + " for event " + eventName);
+        }
+        return this.addEventListener(target, eventName, handler);
+    };
+    ServerEventManagerPlugin.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /** @nocollapse */
+    ServerEventManagerPlugin.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] }] }
+    ]; };
+    return ServerEventManagerPlugin;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/** @type {?} */
 var EMPTY_ARRAY = [];
-var ServerRendererFactory2 = (function () {
-    function ServerRendererFactory2(ngZone, document, sharedStylesHost) {
+var ServerRendererFactory2 = /** @class */ (function () {
+    function ServerRendererFactory2(eventManager, ngZone, document, sharedStylesHost) {
+        this.eventManager = eventManager;
         this.ngZone = ngZone;
         this.document = document;
         this.sharedStylesHost = sharedStylesHost;
         this.rendererByCompId = new Map();
         this.schema = new _angular_compiler.DomElementSchemaRegistry();
-        this.defaultRenderer = new DefaultServerRenderer2(document, ngZone, this.schema);
+        this.defaultRenderer = new DefaultServerRenderer2(eventManager, document, ngZone, this.schema);
     }
     /**
      * @param {?} element
@@ -1094,9 +1227,10 @@ var ServerRendererFactory2 = (function () {
         switch (type.encapsulation) {
             case _angular_core.ViewEncapsulation.Native:
             case _angular_core.ViewEncapsulation.Emulated: {
-                var /** @type {?} */ renderer = this.rendererByCompId.get(type.id);
+                /** @type {?} */
+                var renderer = this.rendererByCompId.get(type.id);
                 if (!renderer) {
-                    renderer = new EmulatedEncapsulationServerRenderer2(this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
+                    renderer = new EmulatedEncapsulationServerRenderer2(this.eventManager, this.document, this.ngZone, this.sharedStylesHost, this.schema, type);
                     this.rendererByCompId.set(type.id, renderer);
                 }
                 (/** @type {?} */ (renderer)).applyToHost(element);
@@ -1106,7 +1240,8 @@ var ServerRendererFactory2 = (function () {
                 throw new Error('Native encapsulation is not supported on the server!');
             default: {
                 if (!this.rendererByCompId.has(type.id)) {
-                    var /** @type {?} */ styles = _angular_platformBrowser.ɵflattenStyles(type.id, type.styles, []);
+                    /** @type {?} */
+                    var styles = _angular_platformBrowser.ɵflattenStyles(type.id, type.styles, []);
                     this.sharedStylesHost.addStyles(styles);
                     this.rendererByCompId.set(type.id, this.defaultRenderer);
                 }
@@ -1133,14 +1268,16 @@ var ServerRendererFactory2 = (function () {
     ];
     /** @nocollapse */
     ServerRendererFactory2.ctorParameters = function () { return [
-        { type: _angular_core.NgZone, },
-        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
-        { type: _angular_platformBrowser.ɵSharedStylesHost, },
+        { type: _angular_platformBrowser.EventManager },
+        { type: _angular_core.NgZone },
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] }] },
+        { type: _angular_platformBrowser.ɵSharedStylesHost }
     ]; };
     return ServerRendererFactory2;
 }());
-var DefaultServerRenderer2 = (function () {
-    function DefaultServerRenderer2(document, ngZone, schema) {
+var DefaultServerRenderer2 = /** @class */ (function () {
+    function DefaultServerRenderer2(eventManager, document, ngZone, schema) {
+        this.eventManager = eventManager;
         this.document = document;
         this.ngZone = ngZone;
         this.schema = schema;
@@ -1167,9 +1304,9 @@ var DefaultServerRenderer2 = (function () {
      */
     function (name, namespace, debugInfo) {
         if (namespace) {
-            return _angular_platformBrowser.ɵgetDOM().createElementNS(_angular_platformBrowser.ɵNAMESPACE_URIS[namespace], name);
+            return _angular_platformBrowser.ɵgetDOM().createElementNS(_angular_platformBrowser.ɵNAMESPACE_URIS[namespace], name, this.document);
         }
-        return _angular_platformBrowser.ɵgetDOM().createElement(name);
+        return _angular_platformBrowser.ɵgetDOM().createElement(name, this.document);
     };
     /**
      * @param {?} value
@@ -1247,7 +1384,8 @@ var DefaultServerRenderer2 = (function () {
      * @return {?}
      */
     function (selectorOrNode, debugInfo) {
-        var /** @type {?} */ el;
+        /** @type {?} */
+        var el;
         if (typeof selectorOrNode === 'string') {
             el = _angular_platformBrowser.ɵgetDOM().querySelector(this.document, selectorOrNode);
             if (!el) {
@@ -1403,10 +1541,10 @@ var DefaultServerRenderer2 = (function () {
     function (el, name, value) {
         checkNoSyntheticProp(name, 'property');
         _angular_platformBrowser.ɵgetDOM().setProperty(el, name, value);
-        // Mirror property values for known HTML element properties in the attributes.
-        var /** @type {?} */ tagName = (/** @type {?} */ (el.tagName)).toLowerCase();
+        /** @type {?} */
+        var tagName = (/** @type {?} */ (el.tagName)).toLowerCase();
         if (value != null && (typeof value === 'number' || typeof value == 'string') &&
-            this.schema.hasElement(tagName, EMPTY_ARRAY) &&
+            name.toLowerCase() !== 'innerhtml' && this.schema.hasElement(tagName, EMPTY_ARRAY) &&
             this.schema.hasProperty(tagName, name, EMPTY_ARRAY) &&
             this._isSafeToReflectProperty(tagName, name)) {
             this.setAttribute(el, name, value.toString());
@@ -1436,16 +1574,34 @@ var DefaultServerRenderer2 = (function () {
      * @return {?}
      */
     function (target, eventName, callback) {
-        var _this = this;
-        // Note: We are not using the EventsPlugin here as this is not needed
-        // to run our tests.
         checkNoSyntheticProp(eventName, 'listener');
-        var /** @type {?} */ el = typeof target === 'string' ? _angular_platformBrowser.ɵgetDOM().getGlobalEventTarget(this.document, target) : target;
-        var /** @type {?} */ outsideHandler = function (event) { return _this.ngZone.runGuarded(function () { return callback(event); }); };
-        return this.ngZone.runOutsideAngular(function () { return /** @type {?} */ (_angular_platformBrowser.ɵgetDOM().onAndCancel(el, eventName, outsideHandler)); });
+        if (typeof target === 'string') {
+            return /** @type {?} */ (this.eventManager.addGlobalEventListener(target, eventName, this.decoratePreventDefault(callback)));
+        }
+        return /** @type {?} */ ((this.eventManager.addEventListener(target, eventName, this.decoratePreventDefault(callback))));
+    };
+    /**
+     * @param {?} eventHandler
+     * @return {?}
+     */
+    DefaultServerRenderer2.prototype.decoratePreventDefault = /**
+     * @param {?} eventHandler
+     * @return {?}
+     */
+    function (eventHandler) {
+        var _this = this;
+        return function (event) {
+            /** @type {?} */
+            var allowDefaultBehavior = _this.ngZone.runGuarded(function () { return eventHandler(event); });
+            if (allowDefaultBehavior === false) {
+                event.preventDefault();
+                event.returnValue = false;
+            }
+        };
     };
     return DefaultServerRenderer2;
 }());
+/** @type {?} */
 var AT_CHARCODE = '@'.charCodeAt(0);
 /**
  * @param {?} name
@@ -1457,15 +1613,18 @@ function checkNoSyntheticProp(name, nameKind) {
         throw new Error("Found the synthetic " + nameKind + " " + name + ". Please include either \"BrowserAnimationsModule\" or \"NoopAnimationsModule\" in your application.");
     }
 }
-var EmulatedEncapsulationServerRenderer2 = (function (_super) {
+var EmulatedEncapsulationServerRenderer2 = /** @class */ (function (_super) {
     __extends(EmulatedEncapsulationServerRenderer2, _super);
-    function EmulatedEncapsulationServerRenderer2(document, ngZone, sharedStylesHost, schema, component) {
-        var _this = _super.call(this, document, ngZone, schema) || this;
+    function EmulatedEncapsulationServerRenderer2(eventManager, document, ngZone, sharedStylesHost, schema, component) {
+        var _this = _super.call(this, eventManager, document, ngZone, schema) || this;
         _this.component = component;
-        var /** @type {?} */ styles = _angular_platformBrowser.ɵflattenStyles(component.id, component.styles, []);
+        /** @type {?} */
+        var componentId = 's' + component.id;
+        /** @type {?} */
+        var styles = _angular_platformBrowser.ɵflattenStyles(componentId, component.styles, []);
         sharedStylesHost.addStyles(styles);
-        _this.contentAttr = _angular_platformBrowser.ɵshimContentAttribute(component.id);
-        _this.hostAttr = _angular_platformBrowser.ɵshimHostAttribute(component.id);
+        _this.contentAttr = _angular_platformBrowser.ɵshimContentAttribute(componentId);
+        _this.hostAttr = _angular_platformBrowser.ɵshimHostAttribute(componentId);
         return _this;
     }
     /**
@@ -1488,7 +1647,8 @@ var EmulatedEncapsulationServerRenderer2 = (function (_super) {
      * @return {?}
      */
     function (parent, name) {
-        var /** @type {?} */ el = _super.prototype.createElement.call(this, parent, name);
+        /** @type {?} */
+        var el = _super.prototype.createElement.call(this, parent, name, this.document);
         _super.prototype.setAttribute.call(this, el, this.contentAttr, '');
         return el;
     };
@@ -1497,7 +1657,7 @@ var EmulatedEncapsulationServerRenderer2 = (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1506,7 +1666,7 @@ var EmulatedEncapsulationServerRenderer2 = (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var ServerStylesHost = (function (_super) {
+var ServerStylesHost = /** @class */ (function (_super) {
     __extends(ServerStylesHost, _super);
     function ServerStylesHost(doc, transitionId) {
         var _this = _super.call(this) || this;
@@ -1525,8 +1685,10 @@ var ServerStylesHost = (function (_super) {
      * @return {?}
      */
     function (style) {
-        var /** @type {?} */ adapter = _angular_platformBrowser.ɵgetDOM();
-        var /** @type {?} */ el = adapter.createElement('style');
+        /** @type {?} */
+        var adapter = _angular_platformBrowser.ɵgetDOM();
+        /** @type {?} */
+        var el = adapter.createElement('style');
         adapter.setText(el, style);
         if (!!this.transitionId) {
             adapter.setAttribute(el, 'ng-transition', this.transitionId);
@@ -1550,15 +1712,15 @@ var ServerStylesHost = (function (_super) {
     ];
     /** @nocollapse */
     ServerStylesHost.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
-        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.ɵTRANSITION_ID,] },] },
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] }] },
+        { type: String, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.ɵTRANSITION_ID,] }] }
     ]; };
     return ServerStylesHost;
 }(_angular_platformBrowser.ɵSharedStylesHost));
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1567,6 +1729,7 @@ var ServerStylesHost = (function (_super) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+/** @type {?} */
 var INTERNAL_SERVER_PLATFORM_PROVIDERS = [
     { provide: _angular_platformBrowser.DOCUMENT, useFactory: _document, deps: [_angular_core.Injector] },
     { provide: _angular_core.PLATFORM_ID, useValue: _angular_common.ɵPLATFORM_SERVER_ID },
@@ -1595,6 +1758,7 @@ function initDominoAdapter(injector) {
 function instantiateServerRendererFactory(renderer, engine, zone) {
     return new _angular_platformBrowser_animations.ɵAnimationRendererFactory(renderer, engine, zone);
 }
+/** @type {?} */
 var SERVER_RENDER_PROVIDERS = [
     ServerRendererFactory2,
     {
@@ -1604,13 +1768,14 @@ var SERVER_RENDER_PROVIDERS = [
     },
     ServerStylesHost,
     { provide: _angular_platformBrowser.ɵSharedStylesHost, useExisting: ServerStylesHost },
+    { provide: _angular_platformBrowser.EVENT_MANAGER_PLUGINS, multi: true, useClass: ServerEventManagerPlugin },
 ];
 /**
  * The ng module for the server.
  *
  * \@experimental
  */
-var ServerModule = (function () {
+var ServerModule = /** @class */ (function () {
     function ServerModule() {
     }
     ServerModule.decorators = [
@@ -1621,11 +1786,10 @@ var ServerModule = (function () {
                         SERVER_RENDER_PROVIDERS,
                         SERVER_HTTP_PROVIDERS,
                         { provide: _angular_core.Testability, useValue: null },
+                        { provide: _angular_common.ViewportScroller, useClass: _angular_common.ɵNullViewportScroller },
                     ],
                 },] },
     ];
-    /** @nocollapse */
-    ServerModule.ctorParameters = function () { return []; };
     return ServerModule;
 }());
 /**
@@ -1633,7 +1797,8 @@ var ServerModule = (function () {
  * @return {?}
  */
 function _document(injector) {
-    var /** @type {?} */ config = injector.get(INITIAL_CONFIG, null);
+    /** @type {?} */
+    var config = injector.get(INITIAL_CONFIG, null);
     if (config && config.document) {
         return parseDocument(config.document, config.url);
     }
@@ -1641,20 +1806,20 @@ function _document(injector) {
         return _angular_platformBrowser.ɵgetDOM().createHtmlDocument();
     }
 }
-/**
+/** *
  * \@experimental
- */
+  @type {?} */
 var platformServer = _angular_core.createPlatformFactory(_angular_core.platformCore, 'server', INTERNAL_SERVER_PLATFORM_PROVIDERS);
-/**
+/** *
  * The server platform that supports the runtime compiler.
  *
  * \@experimental
- */
+  @type {?} */
 var platformDynamicServer = _angular_core.createPlatformFactory(_angular_platformBrowserDynamic.ɵplatformCoreDynamic, 'serverDynamic', INTERNAL_SERVER_PLATFORM_PROVIDERS);
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1671,7 +1836,8 @@ var platformDynamicServer = _angular_core.createPlatformFactory(_angular_platfor
  */
 function serializeTransferStateFactory(doc, appId, transferStore) {
     return function () {
-        var /** @type {?} */ script = doc.createElement('script');
+        /** @type {?} */
+        var script = doc.createElement('script');
         script.id = appId + '-state';
         script.setAttribute('type', 'application/json');
         script.textContent = _angular_platformBrowser.ɵescapeHtml(transferStore.toJson());
@@ -1684,7 +1850,7 @@ function serializeTransferStateFactory(doc, appId, transferStore) {
  *
  * \@experimental
  */
-var ServerTransferStateModule = (function () {
+var ServerTransferStateModule = /** @class */ (function () {
     function ServerTransferStateModule() {
     }
     ServerTransferStateModule.decorators = [
@@ -1699,14 +1865,12 @@ var ServerTransferStateModule = (function () {
                     ]
                 },] },
     ];
-    /** @nocollapse */
-    ServerTransferStateModule.ctorParameters = function () { return []; };
     return ServerTransferStateModule;
 }());
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1721,7 +1885,8 @@ var ServerTransferStateModule = (function () {
  * @return {?}
  */
 function _getPlatform(platformFactory, options) {
-    var /** @type {?} */ extraProviders = options.extraProviders ? options.extraProviders : [];
+    /** @type {?} */
+    var extraProviders = options.extraProviders ? options.extraProviders : [];
     return platformFactory([
         { provide: INITIAL_CONFIG, useValue: { document: options.document, url: options.url } },
         extraProviders
@@ -1735,30 +1900,34 @@ function _getPlatform(platformFactory, options) {
  */
 function _render(platform, moduleRefPromise) {
     return moduleRefPromise.then(function (moduleRef) {
-        var /** @type {?} */ transitionId = moduleRef.injector.get(_angular_platformBrowser.ɵTRANSITION_ID, null);
+        /** @type {?} */
+        var transitionId = moduleRef.injector.get(_angular_platformBrowser.ɵTRANSITION_ID, null);
         if (!transitionId) {
             throw new Error("renderModule[Factory]() requires the use of BrowserModule.withServerTransition() to ensure\nthe server-rendered app can be properly bootstrapped into a client app.");
         }
-        var /** @type {?} */ applicationRef = moduleRef.injector.get(_angular_core.ApplicationRef);
-        return rxjs_operator_toPromise.toPromise
-            .call(rxjs_operator_first.first.call(rxjs_operator_filter.filter.call(applicationRef.isStable, function (isStable) { return isStable; })))
+        /** @type {?} */
+        var applicationRef = moduleRef.injector.get(_angular_core.ApplicationRef);
+        return applicationRef.isStable.pipe((rxjs_operators.first(function (isStable) { return isStable; })))
+            .toPromise()
             .then(function () {
-            var /** @type {?} */ platformState = platform.injector.get(PlatformState);
-            // Run any BEFORE_APP_SERIALIZED callbacks just before rendering to string.
-            var /** @type {?} */ callbacks = moduleRef.injector.get(BEFORE_APP_SERIALIZED, null);
+            /** @type {?} */
+            var platformState = platform.injector.get(PlatformState);
+            /** @type {?} */
+            var callbacks = moduleRef.injector.get(BEFORE_APP_SERIALIZED, null);
             if (callbacks) {
                 for (var _i = 0, callbacks_1 = callbacks; _i < callbacks_1.length; _i++) {
                     var callback = callbacks_1[_i];
                     try {
                         callback();
                     }
-                    catch (/** @type {?} */ e) {
+                    catch (e) {
                         // Ignore exceptions.
                         console.warn('Ignoring BEFORE_APP_SERIALIZED Exception: ', e);
                     }
                 }
             }
-            var /** @type {?} */ output = platformState.renderToString();
+            /** @type {?} */
+            var output = platformState.renderToString();
             platform.destroy();
             return output;
         });
@@ -1781,7 +1950,8 @@ function _render(platform, moduleRefPromise) {
  * @return {?}
  */
 function renderModule(module, options) {
-    var /** @type {?} */ platform = _getPlatform(platformDynamicServer, options);
+    /** @type {?} */
+    var platform = _getPlatform(platformDynamicServer, options);
     return _render(platform, platform.bootstrapModule(module));
 }
 /**
@@ -1798,13 +1968,14 @@ function renderModule(module, options) {
  * @return {?}
  */
 function renderModuleFactory(moduleFactory, options) {
-    var /** @type {?} */ platform = _getPlatform(platformServer, options);
+    /** @type {?} */
+    var platform = _getPlatform(platformServer, options);
     return _render(platform, platform.bootstrapModuleFactory(moduleFactory));
 }
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1816,7 +1987,7 @@ function renderModuleFactory(moduleFactory, options) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1825,15 +1996,8 @@ function renderModuleFactory(moduleFactory, options) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @module
- * @description
- * Entry point for all public APIs of the common package.
- */
-/**
- * \@stable
- */
-var VERSION = new _angular_core.Version('5.1.0-beta.0-21bfaf226');
+/** @type {?} */
+var VERSION = new _angular_core.Version('7.0.0-beta.4-a2418a9037');
 
 exports.PlatformState = PlatformState;
 exports.ServerModule = ServerModule;
@@ -1848,12 +2012,13 @@ exports.VERSION = VERSION;
 exports.ɵINTERNAL_SERVER_PLATFORM_PROVIDERS = INTERNAL_SERVER_PLATFORM_PROVIDERS;
 exports.ɵSERVER_RENDER_PROVIDERS = SERVER_RENDER_PROVIDERS;
 exports.ɵServerRendererFactory2 = ServerRendererFactory2;
-exports.ɵh = SERVER_HTTP_PROVIDERS;
-exports.ɵd = ServerXhr;
-exports.ɵe = ServerXsrfStrategy;
-exports.ɵf = httpFactory;
-exports.ɵg = zoneWrappedInterceptingHandler;
+exports.ɵi = SERVER_HTTP_PROVIDERS;
+exports.ɵe = ServerXhr;
+exports.ɵf = ServerXsrfStrategy;
+exports.ɵg = httpFactory;
+exports.ɵh = zoneWrappedInterceptingHandler;
 exports.ɵa = instantiateServerRendererFactory;
+exports.ɵd = ServerEventManagerPlugin;
 exports.ɵc = ServerStylesHost;
 exports.ɵb = serializeTransferStateFactory;
 
