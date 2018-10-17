@@ -314,7 +314,7 @@ DominoAdapter = /** @class */ (function (_super) {
      */
     function (doc) {
         /** @type {?} */
-        var base = this.querySelector(doc.documentElement, 'base');
+        var base = this.querySelector(/** @type {?} */ ((doc.documentElement)), 'base');
         /** @type {?} */
         var href = '';
         if (base) {

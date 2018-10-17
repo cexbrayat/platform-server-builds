@@ -1,5 +1,5 @@
 /**
- * @license Angular v7.0.0-beta.4-a2418a9037
+ * @license Angular v7.0.0-rc.1-1c561a833c
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -39,7 +39,7 @@ function __extends(d, b) {
 }
 
 /**
- * @license Angular v7.0.0-beta.4-a2418a9037
+ * @license Angular v7.0.0-rc.1-1c561a833c
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -354,7 +354,7 @@ var DominoAdapter = /** @class */ (function (_super) {
      */
     function (doc) {
         /** @type {?} */
-        var base = this.querySelector(doc.documentElement, 'base');
+        var base = this.querySelector(/** @type {?} */ ((doc.documentElement)), 'base');
         /** @type {?} */
         var href = '';
         if (base) {
@@ -1997,7 +1997,7 @@ function renderModuleFactory(moduleFactory, options) {
  * found in the LICENSE file at https://angular.io/license
  */
 /** @type {?} */
-var VERSION = new _angular_core.Version('7.0.0-beta.4-a2418a9037');
+var VERSION = new _angular_core.Version('7.0.0-rc.1-1c561a833c');
 
 exports.PlatformState = PlatformState;
 exports.ServerModule = ServerModule;

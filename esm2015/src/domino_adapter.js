@@ -220,7 +220,7 @@ export class DominoAdapter extends BrowserDomAdapter {
      */
     getBaseHref(doc) {
         /** @type {?} */
-        const base = this.querySelector(doc.documentElement, 'base');
+        const base = this.querySelector(/** @type {?} */ ((doc.documentElement)), 'base');
         /** @type {?} */
         let href = '';
         if (base) {
